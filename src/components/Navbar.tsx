@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Heart, Menu, X, Search, Plus, Home, Bot } from "lucide-react";
+import { Heart, Menu, X, Search, Plus, Home, Bot, Shield } from "lucide-react";
 import kittenIcon from "@/assets/kitten-icon.png";
 
 export const Navbar = () => {
@@ -23,19 +23,27 @@ export const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
-            <a href="#inicio" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+            <a href="/" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
               <Home size={16} />
               Inicio
             </a>
-            <a href="#buscar" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+            <a href="/#buscar" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
               <Search size={16} />
               Buscar
             </a>
-            <a href="#reportar" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+            <a href="/#reportar" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
               <Plus size={16} />
               Reportar
             </a>
-            <a href="#ia" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+            <a href="/adopcion" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+              <Heart size={16} />
+              Adopción
+            </a>
+            <a href="/abandonados" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+              <Shield size={16} />
+              Rescate
+            </a>
+            <a href="/#ia" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
               <Bot size={16} />
               Cómo Funciona IA
             </a>
@@ -67,19 +75,27 @@ export const Navbar = () => {
         {isMenuOpen && (
           <div className="md:hidden border-t border-border/50 py-4">
             <div className="flex flex-col gap-4">
-              <a href="#inicio" className="flex items-center gap-3 px-4 py-2 text-foreground hover:bg-muted/50 rounded-lg transition-colors">
+              <a href="/" className="flex items-center gap-3 px-4 py-2 text-foreground hover:bg-muted/50 rounded-lg transition-colors">
                 <Home size={16} />
                 Inicio
               </a>
-              <a href="#buscar" className="flex items-center gap-3 px-4 py-2 text-foreground hover:bg-muted/50 rounded-lg transition-colors">
+              <a href="/#buscar" className="flex items-center gap-3 px-4 py-2 text-foreground hover:bg-muted/50 rounded-lg transition-colors">
                 <Search size={16} />
                 Buscar Gatitos
               </a>
-              <a href="#reportar" className="flex items-center gap-3 px-4 py-2 text-foreground hover:bg-muted/50 rounded-lg transition-colors">
+              <a href="/#reportar" className="flex items-center gap-3 px-4 py-2 text-foreground hover:bg-muted/50 rounded-lg transition-colors">
                 <Plus size={16} />
                 Reportar
               </a>
-              <a href="#ia" className="flex items-center gap-3 px-4 py-2 text-foreground hover:bg-muted/50 rounded-lg transition-colors">
+              <a href="/adopcion" className="flex items-center gap-3 px-4 py-2 text-foreground hover:bg-muted/50 rounded-lg transition-colors">
+                <Heart size={16} />
+                Adopción
+              </a>
+              <a href="/abandonados" className="flex items-center gap-3 px-4 py-2 text-foreground hover:bg-muted/50 rounded-lg transition-colors">
+                <Shield size={16} />
+                Rescate
+              </a>
+              <a href="/#ia" className="flex items-center gap-3 px-4 py-2 text-foreground hover:bg-muted/50 rounded-lg transition-colors">
                 <Bot size={16} />
                 Cómo Funciona IA
               </a>
