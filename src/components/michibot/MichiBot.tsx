@@ -85,18 +85,18 @@ export function MichiBot({
     }
   };
 
-  // Clases de posición responsivas
+  // Clases de posición responsivas con márgenes mejorados
   const positionClasses = {
-    'bottom-right': 'bottom-4 right-4 sm:bottom-6 sm:right-6 mb-20',
-    'bottom-left': 'bottom-4 left-4 sm:bottom-6 sm:left-6',
+    'bottom-right': 'bottom-4 right-4 sm:bottom-6 sm:right-6 mb-16 sm:mb-6',
+    'bottom-left': 'bottom-4 left-4 sm:bottom-6 sm:left-6 mb-16 sm:mb-6',
     'top-right': 'top-4 right-4 sm:top-6 sm:right-6',
     'top-left': 'top-4 left-4 sm:top-6 sm:left-6',
   }[position];
 
   return (
-    <div className={`fixed z-50 ${positionClasses}`}>
+    <div className={`fixed z-40 ${positionClasses}`}>
       {isOpen ? (
-        <div className="w-80 h-[500px] bg-white rounded-lg shadow-xl flex flex-col overflow-hidden michibot-chat-window">
+        <div className="w-[calc(100vw-2rem)] sm:w-96 h-[calc(100vh-8rem)] max-h-[600px] bg-background border rounded-lg shadow-xl flex flex-col overflow-hidden michibot-chat-window">
           {/* Header */}
           <div 
             className="bg-primary text-white p-4 flex justify-between items-center"

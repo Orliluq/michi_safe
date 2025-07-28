@@ -187,10 +187,10 @@ export const ReportForm = () => {
   };
 
   return (
-    <section className="py-24 bg-background">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">
+    <section className="py-16 sm:py-20 lg:py-24 bg-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
             <span className="text-foreground">Reporta un Michi</span>{" "}
             <span className="text-primary">
               {reportType === "lost"
@@ -200,50 +200,53 @@ export const ReportForm = () => {
                 : ""}
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto">
             Completa la información para que nuestra IA pueda ayudar en la
             búsqueda.
           </p>
         </div>
 
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-6 sm:gap-8">
           {/* Selección de Tipo de Reporte */}
-          <div className="flex gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
             <Button
               variant={reportType === "lost" ? "default" : "outline"}
               size="lg"
               onClick={() => setReportType("lost")}
-              className="px-8 py-6"
+              className="w-full sm:w-auto px-6 sm:px-8 py-4 sm:py-6 text-sm sm:text-base"
             >
-              <Cat className="mr-2" size={20} />
+              <Cat className="mr-2" size={18} />
               Perdí a mi Gatito
             </Button>
             <Button
               variant={reportType === "found" ? "default" : "outline"}
               size="lg"
               onClick={() => setReportType("found")}
-              className="px-8 py-6"
+              className="w-full sm:w-auto px-6 sm:px-8 py-4 sm:py-6 text-sm sm:text-base"
             >
-              <Cat className="mr-2" size={20} />
+              <Cat className="mr-2" size={18} />
               Encontré a un Gatito
             </Button>
           </div>
 
           {/* Formulario principal */}
           {reportType && (
-            <form onSubmit={handleSubmit} className="grid lg:grid-cols-3 gap-8">
+            <form
+              onSubmit={handleSubmit}
+              className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8"
+            >
               {/* Columna Izquierda: Imagen y Detalles Visuales */}
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Upload size={20} className="text-primary" />
+                    <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                      <Upload size={18} className="text-primary" />
                       Foto del Gatito
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <Label htmlFor="imageUrl">URL de la Imagen</Label>
-                    <div className="flex items-center gap-2 mt-1">
+                  <CardContent className="space-y-4">
+                    <Label htmlFor="imageUrl" className="text-sm sm:text-base">URL de la Imagen</Label>
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mt-1">
                       <Input
                         id="imageUrl"
                         type="url"
@@ -253,6 +256,7 @@ export const ReportForm = () => {
                           setFormData({ ...formData, imageUrl: e.target.value })
                         }
                         required
+                        className="flex-1 text-sm sm:text-base"
                       />
                       {/* Hidden file input */}
                       <input
@@ -262,22 +266,26 @@ export const ReportForm = () => {
                         className="hidden"
                         accept="image/*"
                       />
-                      {/* PC Upload Button */}
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="icon"
-                        onClick={() => fileInputRef.current?.click()}
-                      >
-                        <Upload className="w-4 h-4" />
-                        <span className="sr-only">Subir desde PC</span>
-                      </Button>
-                      {/* Drive Upload Button */}
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="icon"
-                        onClick={handleDriveSelect}
+                    </div>
+                    <div className="flex gap-2">
+                        {/* PC Upload Button */}
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => fileInputRef.current?.click()}
+                          className="flex-1 sm:flex-none"
+                        >
+                          <Upload className="w-4 h-4 mr-1 sm:mr-0" />
+                          <span className="sm:sr-only">Subir desde PC</span>
+                        </Button>
+                        {/* Drive Upload Button */}
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={handleDriveSelect}
+                          className="flex-1 sm:flex-none"
                       >
                         <FolderGit2 className="w-4 h-4" />
                         <span className="sr-only">Seleccionar desde Drive</span>

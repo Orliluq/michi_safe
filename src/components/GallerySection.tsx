@@ -137,9 +137,19 @@ export const GallerySection = () => {
             <Card key={cat.id} className="overflow-hidden hover:shadow-card transition-all duration-300 hover:-translate-y-1">
               <div className="aspect-square overflow-hidden">
                 <img 
-                  src={cat.image} 
-                  alt={`Foto de ${cat.name} - ${cat.type === 'lost' ? 'michi perdido' : 'michi encontrado'}`}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  src={cat.image}
+                  srcSet={`
+                    ${cat.image.replace('.jpg', '-320w.jpg')} 320w,
+                    ${cat.image.replace('.jpg', '-480w.jpg')} 480w,
+                    ${cat.image.replace('.jpg', '-800w.jpg')} 800w
+                  `}
+                  sizes="(max-width: 320px) 280px,
+                         (max-width: 480px) 440px,
+                         (max-width: 1024px) 300px,
+                         400px"
+                  alt={`Gatito ${cat.name} en ${cat.location}`}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
                 />
               </div>
               
