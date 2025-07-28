@@ -87,7 +87,7 @@ export function MichiBot({
 
   // Clases de posición responsivas
   const positionClasses = {
-    'bottom-right': 'bottom-4 right-4 sm:bottom-6 sm:right-6',
+    'bottom-right': 'bottom-4 right-4 sm:bottom-6 sm:right-6 mb-20',
     'bottom-left': 'bottom-4 left-4 sm:bottom-6 sm:left-6',
     'top-right': 'top-4 right-4 sm:top-6 sm:right-6',
     'top-left': 'top-4 left-4 sm:top-6 sm:left-6',

@@ -1,11 +1,24 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Upload, MapPin, Calendar, Cat, Search } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Upload,
+  MapPin,
+  Calendar,
+  Cat,
+  Search,
+  FolderGit2,
+} from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -39,20 +52,75 @@ export const ReportForm = () => {
     imageUrl: "", // Cambiado de 'image' a 'imageUrl' para aceptar una URL
   });
 
+  // Ref for the hidden file input
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   // Estados para manejar la respuesta de la API
   const [resultados, setResultados] = useState<Coincidencia[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // --- LÓGICA DE UPLOAD ---
+
+  // Handler for PC upload
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Convert file to base64 data URL for preview (temporary solution)
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const imageUrl = event.target?.result as string;
+      setFormData((prevData) => ({ ...prevData, imageUrl }));
+      toast({
+        title: "Imagen cargada",
+        description:
+          "Imagen lista para usar. Para producción, configura un servicio de upload.",
+      });
+    };
+    reader.readAsDataURL(file);
+
+    // TODO: For production, implement proper file upload to your backend or cloud storage
+    // Example with your own backend:
+    /*
+  const uploadFormData = new FormData();
+  uploadFormData.append("image", file);
+
+  try {
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: uploadFormData,
+    });
+
+    if (!response.ok) throw new Error("Upload failed");
+
+    const result = await response.json();
+    setFormData(prevData => ({ ...prevData, imageUrl: result.url }));
+    toast({ title: "Imagen subida", description: "La URL de la imagen ha sido actualizada." });
+  } catch (error) {
+    console.error("Error uploading file:", error);
+    toast({ variant: "destructive", title: "Error", description: "No se pudo subir la imagen." });
+  }
+  */
+  };
+
+  // Placeholder for Google Drive logic
+  const handleDriveSelect = () => {
+    // NOTE: This requires setting up Google Picker API
+    // The logic would be similar to the one in the previous ImageUploader component
+    alert("La funcionalidad de Google Drive se implementará aquí.");
+  };
 
   // --- LÓGICA DE ENVÍO DEL FORMULARIO ---
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Solo buscamos si es un reporte de "perdido"
-    if (reportType !== 'lost') {
+    if (reportType !== "lost") {
       toast({
         title: "Reporte Enviado",
-        description: "Gracias por reportar al gatito encontrado. Tu información ayudará a otros a encontrar a su mascota.",
+        description:
+          "Gracias por reportar al gatito encontrado. Tu información ayudará a otros a encontrar a su mascota.",
       });
       return;
     }
@@ -63,33 +131,39 @@ export const ReportForm = () => {
 
     toast({
       title: "Buscando coincidencias...",
-      description: "Nuestra IA está analizando la información. Esto puede tardar unos segundos.",
+      description:
+        "Nuestra IA está analizando la información. Esto puede tardar unos segundos.",
     });
 
     try {
       // La URL de tu API de Genkit
-      const response = await fetch('http://localhost:3400/flows/encontrarMiGatitoFlow', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          input: {
-            // Mapeamos los datos del formulario al formato que espera la API
-            gatito: {
-              descripcion: formData.description,
-              colorPrincipal: formData.color,
-              raza: formData.breed,
+      const response = await fetch(
+        "http://localhost:3400/flows/encontrarMiGatitoFlow",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            input: {
+              // Mapeamos los datos del formulario al formato que espera la API
+              gatito: {
+                descripcion: formData.description,
+                colorPrincipal: formData.color,
+                raza: formData.breed,
+              },
+              ultimaUbicacionConocida: formData.location,
+              fotoGatitoPerdidoUrl: formData.imageUrl,
             },
-            ultimaUbicacionConocida: formData.location,
-            fotoGatitoPerdidoUrl: formData.imageUrl,
-          }
-        }),
-      });
+          }),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || `Error en la API: ${response.statusText}`);
+        throw new Error(
+          errorData.message || `Error en la API: ${response.statusText}`
+        );
       }
 
       const result = await response.json();
@@ -100,7 +174,6 @@ export const ReportForm = () => {
         title: "Búsqueda Completada",
         description: `Se encontraron ${coincidencias.length} coincidencias de alta probabilidad.`,
       });
-
     } catch (err: any) {
       setError(err.message);
       toast({
@@ -119,10 +192,17 @@ export const ReportForm = () => {
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">
             <span className="text-foreground">Reporta un Michi</span>{" "}
-            <span className="text-primary">{reportType === "lost" ? "Perdido" : reportType === "found" ? "Encontrado" : ""}</span>
+            <span className="text-primary">
+              {reportType === "lost"
+                ? "Perdido"
+                : reportType === "found"
+                ? "Encontrado"
+                : ""}
+            </span>
           </h2>
           <p className="text-xl text-muted-foreground">
-            Completa la información para que nuestra IA pueda ayudar en la búsqueda.
+            Completa la información para que nuestra IA pueda ayudar en la
+            búsqueda.
           </p>
         </div>
 
@@ -163,16 +243,48 @@ export const ReportForm = () => {
                   </CardHeader>
                   <CardContent>
                     <Label htmlFor="imageUrl">URL de la Imagen</Label>
-                    <Input
-                      id="imageUrl"
-                      type="url"
-                      placeholder="https://imgur.com/gallery/gato.jpg"
-                      value={formData.imageUrl}
-                      onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                      required
-                    />
+                    <div className="flex items-center gap-2 mt-1">
+                      <Input
+                        id="imageUrl"
+                        type="url"
+                        placeholder="https://imgur.com/gallery/gato.jpg"
+                        value={formData.imageUrl}
+                        onChange={(e) =>
+                          setFormData({ ...formData, imageUrl: e.target.value })
+                        }
+                        required
+                      />
+                      {/* Hidden file input */}
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleFileChange}
+                        className="hidden"
+                        accept="image/*"
+                      />
+                      {/* PC Upload Button */}
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        onClick={() => fileInputRef.current?.click()}
+                      >
+                        <Upload className="w-4 h-4" />
+                        <span className="sr-only">Subir desde PC</span>
+                      </Button>
+                      {/* Drive Upload Button */}
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        onClick={handleDriveSelect}
+                      >
+                        <FolderGit2 className="w-4 h-4" />
+                        <span className="sr-only">Seleccionar desde Drive</span>
+                      </Button>
+                    </div>
                     <p className="text-xs text-muted-foreground mt-2">
-                      Para que la IA funcione, pega aquí un enlace a una imagen pública del gatito.
+                      Pega una URL o sube una imagen desde tu PC o Drive.
                     </p>
                   </CardContent>
                 </Card>
@@ -186,21 +298,35 @@ export const ReportForm = () => {
                   <CardContent className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="color">Color Principal</Label>
-                      <Select onValueChange={(value) => setFormData({ ...formData, color: value })}>
-                        <SelectTrigger><SelectValue placeholder="Color del pelaje" /></SelectTrigger>
+                      <Select
+                        onValueChange={(value) =>
+                          setFormData({ ...formData, color: value })
+                        }
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Color del pelaje" />
+                        </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="negro">Negro</SelectItem>
                           <SelectItem value="blanco">Blanco</SelectItem>
                           <SelectItem value="gris">Gris</SelectItem>
-                          <SelectItem value="naranja">Naranja/Atigrado</SelectItem>
+                          <SelectItem value="naranja">
+                            Naranja/Atigrado
+                          </SelectItem>
                           <SelectItem value="calico">Calicó</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="size">Tamaño</Label>
-                      <Select onValueChange={(value) => setFormData({ ...formData, size: value })}>
-                        <SelectTrigger><SelectValue placeholder="Tamaño del gatito" /></SelectTrigger>
+                      <Select
+                        onValueChange={(value) =>
+                          setFormData({ ...formData, size: value })
+                        }
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Tamaño del gatito" />
+                        </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="cachorro">Cachorro</SelectItem>
                           <SelectItem value="joven">Joven</SelectItem>
@@ -224,15 +350,27 @@ export const ReportForm = () => {
                         <Label htmlFor="name">Nombre del Gatito</Label>
                         <Input
                           id="name"
-                          placeholder={reportType === "lost" ? "Ej: Luna, Michi..." : "Si lo conoces"}
+                          placeholder={
+                            reportType === "lost"
+                              ? "Ej: Luna, Michi..."
+                              : "Si lo conoces"
+                          }
                           value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          onChange={(e) =>
+                            setFormData({ ...formData, name: e.target.value })
+                          }
                         />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="breed">Raza</Label>
-                        <Select onValueChange={(value) => setFormData({ ...formData, breed: value })}>
-                          <SelectTrigger><SelectValue placeholder="Selecciona la raza" /></SelectTrigger>
+                        <Select
+                          onValueChange={(value) =>
+                            setFormData({ ...formData, breed: value })
+                          }
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecciona la raza" />
+                          </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="mestizo">Mestizo</SelectItem>
                             <SelectItem value="persa">Persa</SelectItem>
@@ -244,12 +382,35 @@ export const ReportForm = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="location" className="flex items-center gap-2"><MapPin size={16} /> Ubicación</Label>
-                      <Input id="location" placeholder="Colonia, Ciudad" value={formData.location} onChange={(e) => setFormData({ ...formData, location: e.target.value })} required />
+                      <Label
+                        htmlFor="location"
+                        className="flex items-center gap-2"
+                      >
+                        <MapPin size={16} /> Ubicación
+                      </Label>
+                      <Input
+                        id="location"
+                        placeholder="Colonia, Ciudad"
+                        value={formData.location}
+                        onChange={(e) =>
+                          setFormData({ ...formData, location: e.target.value })
+                        }
+                        required
+                      />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="date" className="flex items-center gap-2"><Calendar size={16} /> Fecha</Label>
-                      <Input id="date" type="date" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} required />
+                      <Label htmlFor="date" className="flex items-center gap-2">
+                        <Calendar size={16} /> Fecha
+                      </Label>
+                      <Input
+                        id="date"
+                        type="date"
+                        value={formData.date}
+                        onChange={(e) =>
+                          setFormData({ ...formData, date: e.target.value })
+                        }
+                        required
+                      />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="description">Descripción Detallada</Label>
@@ -257,22 +418,44 @@ export const ReportForm = () => {
                         id="description"
                         placeholder="Describe señas particulares, si llevaba collar, su comportamiento, etc."
                         value={formData.description}
-                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            description: e.target.value,
+                          })
+                        }
                         className="min-h-[100px]"
                       />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="contact">Información de Contacto</Label>
-                      <Input id="contact" placeholder="Email o teléfono" value={formData.contact} onChange={(e) => setFormData({ ...formData, contact: e.target.value })} required />
+                      <Input
+                        id="contact"
+                        placeholder="Email o teléfono"
+                        value={formData.contact}
+                        onChange={(e) =>
+                          setFormData({ ...formData, contact: e.target.value })
+                        }
+                        required
+                      />
                     </div>
                   </CardContent>
                 </Card>
 
-                <Button type="submit" size="lg" className="w-full py-6 text-lg" disabled={isLoading}>
-                  {isLoading ? "Buscando..." : (
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full py-6 text-lg"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    "Buscando..."
+                  ) : (
                     <>
                       <Search className="mr-2" size={20} />
-                      {reportType === "lost" ? "Buscar Coincidencias con IA" : "Enviar Reporte"}
+                      {reportType === "lost"
+                        ? "Buscar Coincidencias con IA"
+                        : "Enviar Reporte"}
                     </>
                   )}
                 </Button>
@@ -282,32 +465,56 @@ export const ReportForm = () => {
 
           {/* Sección de Resultados */}
           <div className="mt-8">
-            {isLoading && <p className="text-center">Analizando publicaciones, por favor espera...</p>}
-            
+            {isLoading && (
+              <p className="text-center">
+                Analizando publicaciones, por favor espera...
+              </p>
+            )}
+
             {error && (
-                <Alert variant="destructive">
-                  <AlertTitle>Error</AlertTitle>
-                  <AlertDescription>{error}</AlertDescription>
-                </Alert>
+              <Alert variant="destructive">
+                <AlertTitle>Error</AlertTitle>
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
             )}
 
             {resultados.length > 0 && (
               <div className="space-y-4">
-                <h3 className="text-2xl font-bold text-center">Resultados de la Búsqueda</h3>
+                <h3 className="text-2xl font-bold text-center">
+                  Resultados de la Búsqueda
+                </h3>
                 {resultados.map((item, index) => (
                   <Card key={index} className="overflow-hidden">
                     <div className="grid md:grid-cols-3">
-                        <div className="md:col-span-1">
-                            <img src={item.publicacion.fotoUrl} alt="Gatito encontrado" className="object-cover w-full h-full"/>
-                        </div>
-                        <div className="md:col-span-2 p-6">
-                            <CardTitle>Coincidencia con {item.analisisIA.confianza}% de confianza</CardTitle>
-                            <p className="text-sm text-muted-foreground mt-2"><strong>Justificación de la IA:</strong> {item.analisisIA.justificacion}</p>
-                            <p className="mt-4">{item.publicacion.descripcionPublicacion}</p>
-                            <Button asChild className="mt-4">
-                                <a href={item.publicacion.urlPublicacion} target="_blank" rel="noopener noreferrer">Ver Publicación Original</a>
-                            </Button>
-                        </div>
+                      <div className="md:col-span-1">
+                        <img
+                          src={item.publicacion.fotoUrl}
+                          alt="Gatito encontrado"
+                          className="object-cover w-full h-full"
+                        />
+                      </div>
+                      <div className="md:col-span-2 p-6">
+                        <CardTitle>
+                          Coincidencia con {item.analisisIA.confianza}% de
+                          confianza
+                        </CardTitle>
+                        <p className="text-sm text-muted-foreground mt-2">
+                          <strong>Justificación de la IA:</strong>{" "}
+                          {item.analisisIA.justificacion}
+                        </p>
+                        <p className="mt-4">
+                          {item.publicacion.descripcionPublicacion}
+                        </p>
+                        <Button asChild className="mt-4">
+                          <a
+                            href={item.publicacion.urlPublicacion}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Ver Publicación Original
+                          </a>
+                        </Button>
+                      </div>
                     </div>
                   </Card>
                 ))}

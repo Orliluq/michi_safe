@@ -111,7 +111,7 @@ export const Footer = () => {
         </div>
 
         {/* Separador y redes sociales */}
-        <div className="border-t border-border pt-8 mt-8">
+        <div className="border-t border-border pt-2 mt-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-sm text-muted-foreground">
               &copy; {year} Made with 💜 by{" "}
@@ -119,7 +119,7 @@ export const Footer = () => {
                 href="https://www.linkedin.com/in/orlibetdungonzalez"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary hover:underline transition-colors"
+                className="text-primary hover:text-foreground transition-colors"
               >
                 Orli
               </a>{" "}

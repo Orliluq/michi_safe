@@ -1,7 +1,7 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-import { Button } from "@/components/ui/button"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -9,23 +9,28 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { useToast } from "@/components/ui/use-toast"
-import { Loader2 } from "lucide-react"
-import { useState } from "react"
-import { Link } from "react-router-dom"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import {
+  loginWithEmail,
+  loginWithGoogle,
+  saveAuth,
+} from "@/services/authService";
+import { Link } from "react-router-dom";
 
 const formSchema = z.object({
   email: z.string().email("Por favor ingresa un correo electrónico válido"),
   password: z.string().min(6, {
     message: "La contraseña debe tener al menos 6 caracteres.",
   }),
-})
+});
 
 export function LoginForm() {
-  const [isLoading, setIsLoading] = useState(false)
-  const { toast } = useToast()
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -33,34 +38,58 @@ export function LoginForm() {
       email: "",
       password: "",
     },
-  })
+  });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
-      // Simular una llamada a la API
-      await new Promise(resolve => setTimeout(resolve, 1500))
-      console.log(values)
+      const res = await loginWithEmail(values.email, values.password);
+      saveAuth(res.token, res.provider);
       toast({
         title: "¡Bienvenido de nuevo!",
         description: "Has iniciado sesión correctamente.",
-      })
+      });
+      window.location.href = "/";
     } catch (error) {
       toast({
         title: "Error",
-        description: "Hubo un error al iniciar sesión. Por favor, intenta de nuevo.",
+        description:
+          "Hubo un error al iniciar sesión. Por favor, intenta de nuevo.",
         variant: "destructive",
-      })
+      });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
+    }
+  }
+
+  async function handleGoogleLogin() {
+    setIsLoading(true);
+    try {
+      const res = await loginWithGoogle();
+      saveAuth(res.token, res.provider);
+      toast({
+        title: "¡Bienvenido con Google!",
+        description: "Has iniciado sesión correctamente.",
+      });
+      window.location.href = "/";
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "No se pudo iniciar sesión con Google.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
     }
   }
 
   return (
-    <div className="mx-auto w-full max-w-md space-y-6">
+    <div className="mx-auto w-full overflow-hidden max-w-md space-y-6">
       <div className="text-center">
-        <h1 className="text-3xl mt-16 font-bold tracking-tight text-foreground">Iniciar Sesión</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <h1 className="text-3xl mt-16 font-bold tracking-tight text-foreground">
+          Iniciar Sesión
+        </h1>
+        <p className="mt-8 text-sm text-muted-foreground">
           Ingresa tus credenciales para acceder a tu cuenta
         </p>
       </div>
@@ -73,14 +102,14 @@ export function LoginForm() {
               <FormItem>
                 <FormLabel>Correo Electrónico</FormLabel>
                 <FormControl>
-                  <Input 
-                    placeholder="tucorreo@ejemplo.com" 
+                  <Input
+                    placeholder="tucorreo@ejemplo.com"
                     type="email"
                     autoCapitalize="none"
                     autoComplete="email"
                     autoCorrect="off"
                     disabled={isLoading}
-                    {...field} 
+                    {...field}
                   />
                 </FormControl>
                 <FormMessage />
@@ -94,28 +123,28 @@ export function LoginForm() {
               <FormItem>
                 <div className="flex items-center justify-between">
                   <FormLabel>Contraseña</FormLabel>
-                  <Link 
-                    to="/forgot-password" 
+                  <Link
+                    to="/forgot-password"
                     className="text-sm font-medium text-primary hover:underline"
                   >
                     ¿Olvidaste tu contraseña?
                   </Link>
                 </div>
                 <FormControl>
-                  <Input 
-                    placeholder="••••••••" 
+                  <Input
+                    placeholder="••••••••"
                     type="password"
                     autoComplete="current-password"
                     disabled={isLoading}
-                    {...field} 
+                    {...field}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             className="w-full bg-primary hover:bg-primary/90 h-11"
             disabled={isLoading}
           >
@@ -124,7 +153,9 @@ export function LoginForm() {
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Iniciando sesión...
               </>
-            ) : 'Iniciar Sesión'}
+            ) : (
+              "Iniciar Sesión"
+            )}
           </Button>
         </form>
       </Form>
@@ -139,7 +170,12 @@ export function LoginForm() {
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4">
-        <Button variant="outline" type="button" disabled={isLoading}>
+        <Button
+          variant="outline"
+          type="button"
+          disabled={isLoading}
+          onClick={handleGoogleLogin}
+        >
           <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
             <path
               d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -169,13 +205,10 @@ export function LoginForm() {
       </div>
       <p className="px-8 text-center text-sm text-muted-foreground">
         ¿No tienes una cuenta?{" "}
-        <Link
-          to="/register"
-          className="underline underline-offset-4 hover:text-primary"
-        >
+        <Link to="/register" className="hover:text-primary">
           Regístrate
         </Link>
       </p>
     </div>
-  )
+  );
 }
