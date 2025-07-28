@@ -110,6 +110,8 @@ export function LoginForm() {
                     </FormLabel>
                     <FormControl>
                       <Input
+                        id="email"
+                        name="email"
                         placeholder="tucorreo@ejemplo.com"
                         type="email"
                         autoCapitalize="none"
@@ -117,6 +119,7 @@ export function LoginForm() {
                         autoCorrect="off"
                         disabled={isLoading}
                         className="h-10 sm:h-11 lg:h-12 text-sm sm:text-base"
+                        aria-required="true"
                         {...field}
                       />
                     </FormControl>
@@ -143,11 +146,14 @@ export function LoginForm() {
                     </div>
                     <FormControl>
                       <Input
+                        id="password"
+                        name="password"
                         placeholder="••••••••"
                         type="password"
                         autoComplete="current-password"
                         disabled={isLoading}
                         className="h-10 sm:h-11 lg:h-12 text-sm sm:text-base"
+                        aria-required="true"
                         {...field}
                       />
                     </FormControl>

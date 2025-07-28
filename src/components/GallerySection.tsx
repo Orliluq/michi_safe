@@ -42,7 +42,7 @@ const mockCats = [
     image: "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?w=400",
     location: "El Valle, Caracas",
     date: "2024-01-20",
-    description: "Gato siamés muy inteligente. Tiene un collar azul con cascabel.",
+    description: "Gato siamés muy inteligente. Tiene un collar azul con cascabel. Busca a su familia.",
     breed: "Siamés",
     color: "Crema y marrón",
     contact: "555-0789",
@@ -55,10 +55,36 @@ const mockCats = [
     image: "https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=400",
     location: "Plaza Bolívar, Caracas",
     date: "2024-01-22",
-    description: "Gatita calicó encontrada cerca del Zócalo. Está bien cuidada.",
+    description: "Gatita calicó encontrada cerca del ministerio. Está bien cuidada. Busca a su familia.",
     breed: "Mestizo",
     color: "Calicó",
     contact: "555-0321",
+    isFavorite: false
+  },
+  {
+    id: 5,
+    name: "Manchitas",
+    type: "lost",
+    image: "src/assets/los-veterinarios-hacen-un-gato-enfermo-de-rayos-x-en-una-mesa-en-una-clinica-veterinaria.jpg",
+    location: "La Candelaria, Caracas",
+    date: "2024-01-25",
+    description: "Gatito blanca con manchas atigradas. Se perdió cerca del mercado. Responde al nombre de Manchitas.",
+    breed: "Atigrado",
+    color: "Blanco",
+    contact: "555-0457",
+    isFavorite: false
+  },
+  {
+    id: 6,
+    name: "Nieve",
+    type: "found",
+    image: "https://images.unsplash.com/photo-1583795128727-6ec3642408f8?w=400",
+    location: "El Hatillo, Caracas",
+    date: "2024-01-27",
+    description: "Gatito tricolor de ojos verdes encontrado en la plaza principal. Muy tranquilo y cariñoso.",
+    breed: "Mestizo",
+    color: "Blanco",
+    contact: "555-0788",
     isFavorite: false
   }
 ];
@@ -71,10 +97,29 @@ export const GallerySection = () => {
   const [filterType, setFilterType] = useState<"all" | "lost" | "found">("all");
   const [filterLocation, setFilterLocation] = useState("");
   const [showFavorites, setShowFavorites] = useState(false);
+  const [visibleCats, setVisibleCats] = useState(6); // Mostrar 6 gatos inicialmente
+  const catsPerLoad = 3; // Cuántos gatos cargar con cada "Cargar más"
+  
   const [cats, setCats] = useState<Cat[]>(() => {
-    // Cargar datos iniciales desde localStorage si existen
+    // Limpiar el localStorage temporalmente para forzar la recarga
+    // localStorage.removeItem('galleryCats');
+    
     const savedCats = localStorage.getItem('galleryCats');
-    return savedCats ? JSON.parse(savedCats) : mockCats;
+    if (!savedCats) {
+      // Si no hay gatos guardados, guarda los mockCats
+      localStorage.setItem('galleryCats', JSON.stringify(mockCats));
+      return mockCats;
+    }
+    
+    try {
+      const parsedCats = JSON.parse(savedCats);
+      // Si hay gatos guardados, úsalos
+      return parsedCats;
+    } catch (e) {
+      // Si hay un error al parsear, usa los mockCats
+      localStorage.setItem('galleryCats', JSON.stringify(mockCats));
+      return mockCats;
+    }
   });
 
   // Guardar cambios en localStorage
@@ -99,9 +144,29 @@ export const GallerySection = () => {
     return matchesSearch && matchesType && matchesLocation && matchesFavorites;
   });
 
+  const displayCats = filteredCats.slice(0, visibleCats);
+  const hasMoreCats = visibleCats < filteredCats.length;
+
+  const loadMoreCats = () => {
+    setVisibleCats(prev => Math.min(prev + catsPerLoad, filteredCats.length));
+  };
+
+  const clearLocalStorage = () => {
+    localStorage.removeItem('galleryCats');
+    window.location.reload();
+  };
+
   return (
     <section className="py-24 bg-muted/30">
       <div className="container mx-auto px-4">
+        {/* Botón temporal para limpiar el localStorage */}
+        <button 
+          onClick={clearLocalStorage}
+          /* className="fixed bottom-4 right-4 text-white p-2 rounded-full z-50 bg-red-500"
+          title="Limpiar caché" */
+        >
+          🗑️
+        </button>
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">
             <span className="text-foreground">Galería de </span>
@@ -162,7 +227,7 @@ export const GallerySection = () => {
 
         {/* Grid de gatos */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCats.map((cat) => (
+          {displayCats.map((cat) => (
             <Card key={cat.id} className="overflow-hidden hover:shadow-md transition-shadow">
               <div className="relative">
                 <img 
@@ -216,9 +281,23 @@ export const GallerySection = () => {
           ))}
         </div>
 
-        {filteredCats.length === 0 && (
+        {filteredCats.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-muted-foreground">No se encontraron resultados. Intenta con otros filtros.</p>
+          </div>
+        ) : hasMoreCats ? (
+          <div className="flex justify-center mt-8">
+            <Button 
+              onClick={loadMoreCats} 
+              variant="outline"
+              className="px-8 py-6 text-base"
+            >
+              Cargar más gatitos
+            </Button>
+          </div>
+        ) : (
+          <div className="text-center py-6 mt-4 text-muted-foreground">
+            Has visto todos los gatitos disponibles
           </div>
         )}
       </div>

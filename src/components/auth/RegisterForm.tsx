@@ -235,20 +235,32 @@ export function RegisterForm() {
             <div className="flex items-start space-x-2">
               <div className="flex items-center h-5">
                 <input
-                  type="checkbox"
                   id="terms"
-                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                  name="terms"
+                  type="checkbox"
                   required
+                  aria-required="true"
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                 />
               </div>
               <div className="text-sm leading-5">
                 <label htmlFor="terms" className="font-medium text-foreground">
                   Acepto los{" "}
-                  <a href="/terms" className="text-primary hover:text-foreground">
+                  <a 
+                    href="/terms" 
+                    className="text-primary hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded px-0.5"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Términos de Servicio
                   </a>{" "}
                   y la{" "}
-                  <a href="/privacy" className="text-primary hover:text-foreground">
+                  <a 
+                    href="/privacy" 
+                    className="text-primary hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded px-0.5"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Política de Privacidad
                   </a>
                 </label>
