@@ -29,7 +29,7 @@ const Veterinarios = () => {
       ],
       destacado: true,
       calificacion: 4.8,
-      imagen: "src/assets/hombre-con-su-adorable-gato-mascota.jpg",
+      imagen: "https://i.ibb.co/4gMyvqFY/los-veterinarios-hacen-un-gato-enfermo-de-rayos-x-en-una-mesa-en-una-clinica-veterinaria.jpg",
     },
     {
       id: 2,
@@ -46,7 +46,7 @@ const Veterinarios = () => {
       ],
       calificacion: 4.7,
       imagen:
-        "src/assets/acercamiento-al-medico-veterinario-cuidando-la-mascota.jpg",
+        "https://i.ibb.co/QvPhsXfQ/primer-disparo-vertical-de-un-lindo-gato-europeo-de-pelo-corto.jpg",
     },
     {
       id: 3,
@@ -58,7 +58,7 @@ const Veterinarios = () => {
       servicios: ["Consultas", "Vacunación", "Peluquería", "Laboratorio"],
       calificacion: 4.5,
       imagen:
-        "https://images.unsplash.com/photo-1583336663277-620dc1996580?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+        "https://i.ibb.co/2YqSGcCv/cerrar-medico-sosteniendo-gato.jpg",
     },
     {
       id: 4,
@@ -69,7 +69,7 @@ const Veterinarios = () => {
       servicios: ["Consultas", "Cirugía", "Estética", "Farmacia"],
       calificacion: 4.3,
       imagen:
-        "https://images.unsplash.com/photo-1587300003388-59208cc962cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+        "https://i.ibb.co/vyydnH2/acercamiento-al-medico-veterinario-cuidando-la-mascota.jpg",
     },
     {
       id: 5,
@@ -82,7 +82,7 @@ const Veterinarios = () => {
       destacado: true,
       calificacion: 4.9,
       imagen:
-        "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+        "https://i.ibb.co/jkX7R3Qz/adorable-gatito-con-pared-monocromatica-detras-de-ella.jpg",
     },
   ];
 

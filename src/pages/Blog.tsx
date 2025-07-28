@@ -12,7 +12,7 @@ const Blog = () => {
       date: '15 Julio 2024',
       readTime: '5 min',
       author: 'Dra. María González',
-      image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+      image: 'https://i.ibb.co/QvPhsXfQ/primer-disparo-vertical-de-un-lindo-gato-europeo-de-pelo-corto.jpg',
       featured: true
     },
     {
@@ -23,7 +23,7 @@ const Blog = () => {
       date: '10 Julio 2024',
       readTime: '8 min',
       author: 'Carlos Mendoza',
-      image: 'https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+      image: 'https://i.ibb.co/4gMyvqFY/los-veterinarios-hacen-un-gato-enfermo-de-rayos-x-en-una-mesa-en-una-clinica-veterinaria.jpg'
     },
     {
       id: 3,
@@ -33,7 +33,7 @@ const Blog = () => {
       date: '5 Julio 2024',
       readTime: '6 min',
       author: 'Nutrióloga Ana Torres',
-      image: 'https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+      image: 'https://i.ibb.co/2YqSGcCv/cerrar-medico-sosteniendo-gato.jpg'
     },
     {
       id: 4,
@@ -43,7 +43,7 @@ const Blog = () => {
       date: '28 Junio 2024',
       readTime: '7 min',
       author: 'Eduardo Rojas',
-      image: 'https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+      image: 'https://i.ibb.co/vyydnH2/acercamiento-al-medico-veterinario-cuidando-la-mascota.jpg'
     },
     {
       id: 5,
@@ -53,7 +53,7 @@ const Blog = () => {
       date: '20 Junio 2024',
       readTime: '5 min',
       author: 'Dra. Laura Pérez',
-      image: 'https://images.unsplash.com/photo-1618871736706-0d3f5d2d8ef1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+      image: 'https://i.ibb.co/jkX7R3Qz/adorable-gatito-con-pared-monocromatica-detras-de-ella.jpg'
     },
     {
       id: 6,
@@ -63,7 +63,7 @@ const Blog = () => {
       date: '15 Junio 2024',
       readTime: '4 min',
       author: 'Martha Sánchez',
-      image: 'https://images.unsplash.com/photo-1491485880348-85d48a9e5312?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+      image: 'https://i.ibb.co/3mbv1q0T/gato-con-cono.jpg'
     }
   ];
 

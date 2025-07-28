@@ -35,7 +35,7 @@ const RefugiosCercanos = () => {
       ],
       descripcion:
         "Organización sin fines de lucro fundada en 2013 que se dedica al rescate, rehabilitación y adopción de animales en situación de calle.",
-      imagen: "src/assets/nevado.jpg",
+      imagen: "https://i.ibb.co/kVJWPxNQ/nevado.jpg",
       destacado: true,
       lat: 10.4951,
       lng: -66.8286,
@@ -57,7 +57,7 @@ const RefugiosCercanos = () => {
       ],
       descripcion:
         "Organización dedicada al bienestar animal con más de 20 años de trayectoria en la protección y defensa de los animales.",
-      imagen: "src/assets/proanimales.png",
+      imagen: "https://i.ibb.co/qXPHFQv/proanimales.png",
       destacado: true,
       lat: 10.4171,
       lng: -66.8756,
@@ -78,7 +78,7 @@ const RefugiosCercanos = () => {
       ],
       descripcion:
         "Pequeño refugio familiar que se dedica al rescate y rehabilitación de animales maltratados y abandonados.",
-      imagen: "src/assets/huellas.png",
+      imagen: "https://i.ibb.co/Zzhg811X/huellas.png",
       lat: 10.4956,
       lng: -66.8489,
     },
@@ -99,7 +99,7 @@ const RefugiosCercanos = () => {
       ],
       descripcion:
         "Organación sin fines de lucro que trabaja en la protección animal y concientización sobre tenencia responsable.",
-      imagen: "src/assets/patitas.jpg",
+      imagen: "https://i.ibb.co/rR5wz36y/patitas.jpg",
       lat: 10.3442,
       lng: -66.8311,
     },

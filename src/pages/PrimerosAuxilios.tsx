@@ -15,7 +15,7 @@ const PrimerosAuxilios = () => {
         'Nunca metas los dedos si no ves el objeto',
         'Si no puedes quitarlo, llévalo al veterinario inmediatamente'
       ],
-      imagen: 'src/assets/gato-con-cono.jpg',
+      imagen: 'https://i.ibb.co/jkX7R3Qz/adorable-gatito-con-pared-monocromatica-detras-de-ella.jpg',
       noHacer: 'No intentes el método de Heimlich sin entrenamiento'
     },
     {
@@ -29,7 +29,7 @@ const PrimerosAuxilios = () => {
         'Lava con solución salina o agua limpia',
         'Aplica un vendaje ligero si es necesario'
       ],
-      imagen: 'src/assets/cerrar-medico-sosteniendo-gato.jpg',
+      imagen: 'https://i.ibb.co/8LPJTcYc/cono-marron-despues-de-la-cirugia-inyeccion-para-un-animal-veterinario-en-guantes-con-una-inyeccion.jpg',
       noHacer: 'No uses alcohol ni peróxido en heridas abiertas'
     },
     {
@@ -43,7 +43,7 @@ const PrimerosAuxilios = () => {
         'Cubre con gasa estéril sin apretar',
         'Consulta al veterinario, especialmente si la quemadura es grave'
       ],
-      imagen: 'src/assets/cono-marron-despues-de-la-cirugia-inyeccion-para-un-animal-veterinario-en-guantes-con-una-inyeccion.jpg',
+      imagen: 'https://i.ibb.co/2YqSGcCv/cerrar-medico-sosteniendo-gato.jpg',
       noHacer: 'No apliques pomadas ni remedios caseros sin consultar'
     },
     {
@@ -57,7 +57,7 @@ const PrimerosAuxilios = () => {
         'No induzcas el vómito a menos que lo indique un profesional',
         'Lleva el envase de la sustancia al veterinario'
       ],
-      imagen: 'src/assets/hombre-con-su-adorable-gato-mascota.jpg',
+      imagen: 'https://i.ibb.co/3mbv1q0T/gato-con-cono.jpg',
       noHacer: 'No des leche ni intentes remedios caseros sin consultar'
     },
     {
@@ -71,7 +71,7 @@ const PrimerosAuxilios = () => {
         'Ofrece agua fresca para beber',
         'Acude al veterinario inmediatamente'
       ],
-      imagen: 'src/assets/adorable-gatito-con-pared-monocromatica-detras-de-ella.jpg',
+      imagen: 'https://i.ibb.co/jkX7R3Qz/adorable-gatito-con-pared-monocromatica-detras-de-ella.jpg',
       noHacer: 'No uses agua helada ni hielo para enfriar al gato'
     },
     {
@@ -85,7 +85,7 @@ const PrimerosAuxilios = () => {
         'Apaga luces y reduce el ruido',
         'Toma nota de la duración y síntomas'
       ],
-      imagen: 'https://images.unsplash.com/photo-1519052537078-e6302a4968d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+      imagen: 'https://i.ibb.co/QvPhsXfQ/primer-disparo-vertical-de-un-lindo-gato-europeo-de-pelo-corto.jpg',
       noHacer: 'No metas las manos cerca de la boca del gato durante la convulsión'
     }
   ];

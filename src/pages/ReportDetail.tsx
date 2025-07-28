@@ -10,7 +10,7 @@ const mockReport = {
   title: "Gatito atigrado perdido en Miraflores",
   description: "Se perdió mi gato atigrado de 2 años en el parque Kennedy. Es muy cariñoso y responde al nombre de 'Michi'. Tiene un collar azul con una placa con su nombre.",
   type: "lost", // 'lost' o 'found'
-  image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+  image: "https://i.ibb.co/QvPhsXfQ/primer-disparo-vertical-de-un-lindo-gato-europeo-de-pelo-corto.jpg",
   date: "2023-07-25",
   location: "Miraflores, Lima",
   breed: "Atigrado",
@@ -23,9 +23,9 @@ const mockReport = {
     email: "maria@ejemplo.com"
   },
   additionalImages: [
-    "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
-    "https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
-    "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+    "https://i.ibb.co/MxW4mQ80/hombre-con-su-adorable-gato-mascota.jpg",
+    "https://i.ibb.co/8LPJTcYc/cono-marron-despues-de-la-cirugia-inyeccion-para-un-animal-veterinario-en-guantes-con-una-inyeccion.jpg",
+    "https://i.ibb.co/vyydnH2/acercamiento-al-medico-veterinario-cuidando-la-mascota.jpg"
   ]
 };
 

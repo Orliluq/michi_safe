@@ -25,7 +25,7 @@ const SuccessStories = () => {
       description: "Luna desapareció durante una tormenta y después de meses de búsqueda, gracias a un reporte en Michi Safe, fue encontrada a 15km de casa. La familia estaba desesperada, pero nunca perdieron la esperanza. Ahora Luna está de vuelta, más mimada que nunca.",
       location: "Valencia, Carabobo",
       date: "15 de Junio, 2025",
-      image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      image: "https://i.ibb.co/vyydnH2/acercamiento-al-medico-veterinario-cuidando-la-mascota.jpg",
       quote: "Gracias a Michi Safe, nuestra familia está completa otra vez. No teníamos esperanzas después de tanto tiempo, pero la comunidad nos ayudó a encontrarla.",
       author: "Familia Rodríguez",
       catName: "Luna"
@@ -36,7 +36,7 @@ const SuccessStories = () => {
       description: "Simón salió por la ventana y se perdió en el vecindario. Publicamos su foto en Michi Safe y en solo 2 días recibimos una alerta de coincidencia. La tecnología de reconocimiento facial de la aplicación lo identificó en un refugio cercano.",
       location: "Caracas, Distrito Capital",
       date: "2 de Julio, 2025",
-      image: "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      image: "https://i.ibb.co/2YqSGcCv/cerrar-medico-sosteniendo-gato.jpg",
       quote: "No podíamos creerlo cuando recibimos la notificación. Simón estaba asustado pero en buen estado. ¡La tecnología es increíble!",
       author: "Carlos Márquez",
       catName: "Simón"
@@ -47,7 +47,7 @@ const SuccessStories = () => {
       description: "No estábamos buscando adoptar, pero cuando vimos a Panchito en Michi Safe, supimos que era el gato para nosotros. Había sido rescatado después de vivir en la calle. Ahora es el rey de la casa y nos llena de amor todos los días.",
       location: "Maracaibo, Zulia",
       date: "22 de Mayo, 2025",
-      image: "https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      image: "https://i.ibb.co/3mbv1q0T/gato-con-cono.jpg",
       quote: "Panchito nos eligió a través de la app. Fue amor a primera vista y no podríamos estar más felices con nuestra decisión de adoptar.",
       author: "Laura y Miguel",
       catName: "Panchito"
