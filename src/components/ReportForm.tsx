@@ -186,6 +186,10 @@ export const ReportForm = () => {
     }
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   return (
     <section className="py-16 sm:py-20 lg:py-24 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
@@ -249,13 +253,14 @@ export const ReportForm = () => {
                     <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mt-1">
                       <Input
                         id="imageUrl"
+                        name="imageUrl"
                         type="url"
+                        autoComplete="url"
                         placeholder="https://imgur.com/gallery/gato.jpg"
                         value={formData.imageUrl}
-                        onChange={(e) =>
-                          setFormData({ ...formData, imageUrl: e.target.value })
-                        }
+                        onChange={handleInputChange}
                         required
+                        aria-required="true"
                         className="flex-1 text-sm sm:text-base"
                       />
                       {/* Hidden file input */}
@@ -307,9 +312,11 @@ export const ReportForm = () => {
                     <div className="space-y-2">
                       <Label htmlFor="color">Color Principal</Label>
                       <Select
+                        value={formData.color}
                         onValueChange={(value) =>
                           setFormData({ ...formData, color: value })
                         }
+                        aria-label="Color del gato"
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Color del pelaje" />
@@ -328,9 +335,11 @@ export const ReportForm = () => {
                     <div className="space-y-2">
                       <Label htmlFor="size">Tamaño</Label>
                       <Select
+                        value={formData.size}
                         onValueChange={(value) =>
                           setFormData({ ...formData, size: value })
                         }
+                        aria-label="Tamaño del gato"
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Tamaño del gatito" />
@@ -358,34 +367,26 @@ export const ReportForm = () => {
                         <Label htmlFor="name">Nombre del Gatito</Label>
                         <Input
                           id="name"
-                          placeholder={
-                            reportType === "lost"
-                              ? "Ej: Luna, Michi..."
-                              : "Si lo conoces"
-                          }
+                          name="name"
+                          type="text"
+                          autoComplete="name"
+                          placeholder="Nombre del gato"
                           value={formData.name}
-                          onChange={(e) =>
-                            setFormData({ ...formData, name: e.target.value })
-                          }
+                          onChange={handleInputChange}
+                          required
+                          aria-required="true"
                         />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="breed">Raza</Label>
-                        <Select
-                          onValueChange={(value) =>
-                            setFormData({ ...formData, breed: value })
-                          }
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Selecciona la raza" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="mestizo">Mestizo</SelectItem>
-                            <SelectItem value="persa">Persa</SelectItem>
-                            <SelectItem value="siames">Siamés</SelectItem>
-                            <SelectItem value="no-se">No sé</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <Input
+                          id="breed"
+                          name="breed"
+                          type="text"
+                          placeholder="Raza (opcional)"
+                          value={formData.breed}
+                          onChange={handleInputChange}
+                        />
                       </div>
                     </div>
 
@@ -398,12 +399,14 @@ export const ReportForm = () => {
                       </Label>
                       <Input
                         id="location"
-                        placeholder="Colonia, Ciudad"
+                        name="location"
+                        type="text"
+                        autoComplete="street-address"
+                        placeholder="Ubicación donde se perdió/encontró"
                         value={formData.location}
-                        onChange={(e) =>
-                          setFormData({ ...formData, location: e.target.value })
-                        }
+                        onChange={handleInputChange}
                         required
+                        aria-required="true"
                       />
                     </div>
                     <div className="space-y-2">
@@ -412,26 +415,25 @@ export const ReportForm = () => {
                       </Label>
                       <Input
                         id="date"
+                        name="date"
                         type="date"
+                        autoComplete="off"
                         value={formData.date}
-                        onChange={(e) =>
-                          setFormData({ ...formData, date: e.target.value })
-                        }
+                        onChange={handleInputChange}
                         required
+                        aria-required="true"
                       />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="description">Descripción Detallada</Label>
                       <Textarea
                         id="description"
-                        placeholder="Describe señas particulares, si llevaba collar, su comportamiento, etc."
+                        name="description"
+                        placeholder="Descripción detallada del gato..."
                         value={formData.description}
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            description: e.target.value,
-                          })
-                        }
+                        onChange={handleInputChange}
+                        required
+                        aria-required="true"
                         className="min-h-[100px]"
                       />
                     </div>
@@ -439,12 +441,14 @@ export const ReportForm = () => {
                       <Label htmlFor="contact">Información de Contacto</Label>
                       <Input
                         id="contact"
-                        placeholder="Email o teléfono"
+                        name="contact"
+                        type="tel"
+                        autoComplete="tel"
+                        placeholder="Número de contacto"
                         value={formData.contact}
-                        onChange={(e) =>
-                          setFormData({ ...formData, contact: e.target.value })
-                        }
+                        onChange={handleInputChange}
                         required
+                        aria-required="true"
                       />
                     </div>
                   </CardContent>

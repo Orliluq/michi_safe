@@ -165,7 +165,7 @@ export const GallerySection = () => {
           /* className="fixed bottom-4 right-4 text-white p-2 rounded-full z-50 bg-red-500"
           title="Limpiar caché" */
         >
-          🗑️
+        {/*   🗑️ */}
         </button>
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">

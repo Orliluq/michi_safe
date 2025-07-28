@@ -98,9 +98,12 @@ export function RegisterForm() {
                   <FormLabel>Nombre Completo</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Tu nombre"
+                      id="name"
+                      name="name"
                       type="text"
                       autoComplete="name"
+                      placeholder="Tu nombre completo"
+                      aria-required="true"
                       disabled={isLoading}
                       className="w-full"
                       {...field}
@@ -118,11 +121,12 @@ export function RegisterForm() {
                   <FormLabel>Correo Electrónico</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="tucorreo@ejemplo.com"
+                      id="email"
+                      name="email"
                       type="email"
-                      autoCapitalize="none"
                       autoComplete="email"
-                      autoCorrect="off"
+                      placeholder="tucorreo@ejemplo.com"
+                      aria-required="true"
                       disabled={isLoading}
                       className="w-full"
                       {...field}
@@ -140,9 +144,12 @@ export function RegisterForm() {
                   <FormLabel>Contraseña</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="••••••••"
+                      id="password"
+                      name="password"
                       type="password"
                       autoComplete="new-password"
+                      placeholder="••••••••"
+                      aria-required="true"
                       disabled={isLoading}
                       className="w-full"
                       {...field}
@@ -220,9 +227,12 @@ export function RegisterForm() {
                   <FormLabel>Confirmar Contraseña</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="••••••••"
+                      id="confirmPassword"
+                      name="confirmPassword"
                       type="password"
                       autoComplete="new-password"
+                      placeholder="••••••••"
+                      aria-required="true"
                       disabled={isLoading}
                       className="w-full"
                       {...field}

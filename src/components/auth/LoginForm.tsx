@@ -112,14 +112,12 @@ export function LoginForm() {
                       <Input
                         id="email"
                         name="email"
-                        placeholder="tucorreo@ejemplo.com"
                         type="email"
-                        autoCapitalize="none"
                         autoComplete="email"
-                        autoCorrect="off"
+                        placeholder="tucorreo@ejemplo.com"
+                        aria-required="true"
                         disabled={isLoading}
                         className="h-10 sm:h-11 lg:h-12 text-sm sm:text-base"
-                        aria-required="true"
                         {...field}
                       />
                     </FormControl>
@@ -148,12 +146,12 @@ export function LoginForm() {
                       <Input
                         id="password"
                         name="password"
-                        placeholder="••••••••"
                         type="password"
                         autoComplete="current-password"
-                        disabled={isLoading}
-                        className="h-10 sm:h-11 lg:h-12 text-sm sm:text-base"
+                        placeholder="••••••••"
                         aria-required="true"
+                        disabled={isLoading}
+                        className="pr-10"
                         {...field}
                       />
                     </FormControl>
