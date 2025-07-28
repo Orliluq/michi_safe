@@ -22,11 +22,33 @@
 
 /* Estilos para el botón flotante */
 .michibot-float {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
   background-color: var(--color-primary);
   color: white;
   animation: float 3s ease-in-out infinite;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3), 0 2px 4px -1px rgba(79, 70, 229, 0.1);
+  border: none;
+  outline: none;
+}
+
+@media (min-width: 640px) {
+  .michibot-float {
+    width: 4rem;
+    height: 4rem;
+    bottom: 2rem;
+    right: 2rem;
+  }
 }
 
 .michibot-float:hover {
@@ -38,13 +60,32 @@
 
 /* Estilos para la ventana de chat */
 .michibot-chat-window {
+  position: fixed;
+  bottom: 6rem;
+  right: 1.5rem;
+  width: calc(100% - 3rem);
+  max-width: 26rem;
+  height: calc(100vh - 10rem);
+  max-height: 40rem;
+  display: flex;
+  flex-direction: column;
   background-color: var(--color-background);
   color: var(--color-text);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   border-radius: 1rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   overflow: hidden;
   transition: all 0.3s ease;
   border: 1px solid var(--color-border);
+  z-index: 9998;
+}
+
+@media (min-width: 640px) {
+  .michibot-chat-window {
+    right: 2rem;
+    bottom: 6.5rem;
+    width: 26rem;
+    height: 40rem;
+  }
 }
 
 /* Estilos para la barra de desplazamiento */
@@ -61,27 +102,47 @@
   border-radius: 3px;
 }
 
-/* Estilos para los mensajes del bot */
+/* Estilos para los mensajes */
+.michibot-message {
+  max-width: 80%;
+  margin: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
+  line-height: 1.4;
+  position: relative;
+  word-wrap: break-word;
+  font-size: 0.9375rem;
+}
+
 .michibot-message-bot {
   background-color: var(--color-surface);
   color: var(--color-text);
   border-radius: 1rem 1rem 1rem 0.25rem;
   border: 1px solid var(--color-border);
+  margin-right: auto;
+  text-align: left;
 }
 
-/* Estilos para los mensajes del usuario */
 .michibot-message-user {
   background-color: var(--color-primary);
   color: white;
   border-radius: 1rem 1rem 0.25rem 1rem;
+  margin-left: auto;
+  text-align: right;
 }
 
 /* Estilos para las sugerencias rápidas */
 .michibot-quick-reply {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0.25rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
   background-color: white;
   color: var(--color-primary);
   border: 1px solid var(--color-primary-light);
-  transition: all 0.2s ease;
 }
 
 .michibot-quick-reply:hover {
@@ -90,20 +151,82 @@
 }
 
 /* Estilos para el indicador de escritura */
+.michibot-typing-indicator {
+  display: flex;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 1rem;
+  background-color: var(--color-surface);
+  border-radius: 1rem 1rem 1rem 0.25rem;
+  width: fit-content;
+  border: 1px solid var(--color-border);
+}
+
 .michibot-typing-indicator span {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 0 0.125rem;
   background-color: var(--color-primary-light);
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: michibot-typing 1.4s infinite ease-in-out both;
+}
+
+.michibot-typing-indicator span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.michibot-typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.michibot-typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes michibot-typing {
+  0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+  40% { transform: scale(1); opacity: 1; }
 }
 
 /* Estilos para el encabezado del chat */
 .michibot-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.25rem;
   background-color: var(--color-primary);
   color: white;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+/* Estilos para el área de mensajes */
+.michibot-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 /* Estilos para el área de entrada */
-.michibot-input {
-  border-color: var(--color-border);
+.michibot-input-container {
+  display: flex;
+  padding: 0.75rem 1rem;
   background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+}
+
+.michibot-input {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  font-size: 0.9375rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: var(--color-background);
   color: var(--color-text);
 }
 
@@ -114,8 +237,18 @@
 
 /* Estilos para el botón de envío */
 .michibot-send-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-left: 0.5rem;
+  border: none;
+  border-radius: 50%;
   background-color: var(--color-primary);
   color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .michibot-send-button:hover {
@@ -125,4 +258,66 @@
 .michibot-send-button:disabled {
   background-color: var(--color-text-secondary);
   cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 640px) {
+  .michibot-chat-window {
+    max-height: calc(100vh - 8rem);
+  }
+  
+  .michibot-message {
+    max-width: 85%;
+    font-size: 0.875rem;
+    padding: 0.625rem 0.875rem;
+  }
+  
+  .michibot-header {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+  }
+  
+  .michibot-input {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.875rem;
+  }
+  
+  .michibot-send-button {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+}
+
+/* Ajustes para modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .michibot-chat-window {
+    --color-background: #1a1a2e;
+    --color-surface: #16213e;
+    --color-text: #f0f0f0;
+    --color-text-secondary: #a1a1aa;
+    --color-border: #2d3748;
+  }
+  
+  .michibot-message-bot {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+  }
+  
+  .michibot-input {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    border-color: var(--color-border);
+  }
+  
+  .michibot-quick-reply {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    border-color: var(--color-border);
+  }
+  
+  .michibot-quick-reply:hover {
+    background-color: var(--color-primary);
+    color: white;
+  }
 }

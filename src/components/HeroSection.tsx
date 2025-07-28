@@ -119,12 +119,12 @@ export const HeroSection = () => {
           </div>
 
           <div
-            className="absolute -bottom-3 -right-3 sm:-bottom-6 sm:-right-6 bg-card/90 backdrop-blur-sm p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-card animate-float"
+            className="absolute bottom-2 right-2 sm:-bottom-6 sm:-right-6 bg-card/90 backdrop-blur-sm p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-card animate-float"
             style={{ animationDelay: "1.5s" }}
           >
             <div className="flex items-center gap-2 sm:gap-3">
               <div className="w-8 h-8 sm:w-12 sm:h-12 bg-accent rounded-full flex items-center justify-center">
-                <Heart className="text-accent-foreground" size={16} />
+                <Heart className="text-accent-foreground w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
                 <p className="font-semibold text-xs sm:text-sm">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -19,7 +19,8 @@ const mockCats = [
     description: "Gatita persa gris con ojos azules. Muy cariñosa y responde a su nombre.",
     breed: "Persa",
     color: "Gris",
-    contact: "555-0123"
+    contact: "555-0123",
+    isFavorite: false
   },
   {
     id: 2,
@@ -31,7 +32,8 @@ const mockCats = [
     description: "Gatito naranja encontrado en el parque. Muy amigable, busca a su familia.",
     breed: "Mestizo",
     color: "Naranja",
-    contact: "555-0456"
+    contact: "555-0456",
+    isFavorite: false
   },
   {
     id: 3,
@@ -43,7 +45,8 @@ const mockCats = [
     description: "Gato siamés muy inteligente. Tiene un collar azul con cascabel.",
     breed: "Siamés",
     color: "Crema y marrón",
-    contact: "555-0789"
+    contact: "555-0789",
+    isFavorite: false
   },
   {
     id: 4,
@@ -55,24 +58,45 @@ const mockCats = [
     description: "Gatita calicó encontrada cerca del Zócalo. Está bien cuidada.",
     breed: "Mestizo",
     color: "Calicó",
-    contact: "555-0321"
+    contact: "555-0321",
+    isFavorite: false
   }
 ];
+
+type Cat = typeof mockCats[0];
 
 export const GallerySection = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState<"all" | "lost" | "found">("all");
   const [filterLocation, setFilterLocation] = useState("");
+  const [showFavorites, setShowFavorites] = useState(false);
+  const [cats, setCats] = useState<Cat[]>(() => {
+    // Cargar datos iniciales desde localStorage si existen
+    const savedCats = localStorage.getItem('galleryCats');
+    return savedCats ? JSON.parse(savedCats) : mockCats;
+  });
 
-  const filteredCats = mockCats.filter(cat => {
+  // Guardar cambios en localStorage
+  useEffect(() => {
+    localStorage.setItem('galleryCats', JSON.stringify(cats));
+  }, [cats]);
+
+  const toggleFavorite = (id: number) => {
+    setCats(cats.map(cat => 
+      cat.id === id ? { ...cat, isFavorite: !cat.isFavorite } : cat
+    ));
+  };
+
+  const filteredCats = cats.filter(cat => {
     const matchesSearch = cat.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          cat.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          cat.location.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesType = filterType === "all" || cat.type === filterType;
     const matchesLocation = !filterLocation || cat.location.toLowerCase().includes(filterLocation.toLowerCase());
+    const matchesFavorites = !showFavorites || cat.isFavorite;
     
-    return matchesSearch && matchesType && matchesLocation;
+    return matchesSearch && matchesType && matchesLocation && matchesFavorites;
   });
 
   return (
@@ -80,32 +104,33 @@ export const GallerySection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">
-            <span className="text-foreground">Galería de</span>{" "}
+            <span className="text-foreground">Galería de </span>
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Michis
+              Gatitos
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground">
-            Busca entre los reportes recientes. La IA analiza continuamente nuevas coincidencias.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Encuentra gatitos perdidos o reporta uno que hayas encontrado.
           </p>
         </div>
 
-        {/* Filters */}
-        <div className="bg-card/50 backdrop-blur-sm p-6 rounded-2xl shadow-card mb-8">
-          <div className="grid md:grid-cols-4 gap-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={20} />
+        {/* Filtros */}
+        <div className="bg-card p-6 rounded-xl shadow-sm mb-12">
+          <div className="flex flex-col md:flex-row gap-4 mb-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
-                placeholder="Buscar por nombre, descripción..."
+                type="text"
+                placeholder="Buscar por nombre, descripción o ubicación..."
+                className="pl-10"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
               />
             </div>
-            
             <Select value={filterType} onValueChange={(value: "all" | "lost" | "found") => setFilterType(value)}>
-              <SelectTrigger>
-                <SelectValue placeholder="Tipo de reporte" />
+              <SelectTrigger className="w-[180px]">
+                <Filter className="h-4 w-4 mr-2" />
+                <SelectValue placeholder="Filtrar por" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Todos</SelectItem>
@@ -113,102 +138,89 @@ export const GallerySection = () => {
                 <SelectItem value="found">Encontrados</SelectItem>
               </SelectContent>
             </Select>
-            
-            <div className="relative">
-              <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={20} />
-              <Input
-                placeholder="Ubicación..."
-                value={filterLocation}
-                onChange={(e) => setFilterLocation(e.target.value)}
-                className="pl-10"
+            <Button 
+              variant={showFavorites ? "default" : "outline"}
+              onClick={() => setShowFavorites(!showFavorites)}
+              className="flex items-center gap-2"
+            >
+              <Heart 
+                className={`h-5 w-5 ${showFavorites ? 'fill-current' : ''}`} 
+                fill={showFavorites ? 'currentColor' : 'none'}
               />
-            </div>
-            
-            <Button variant="outline" className="flex items-center gap-2">
-              <Filter size={16} />
-              Filtros Avanzados
+              Favoritos
             </Button>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {filterLocation && (
+              <Badge className="flex items-center gap-1 bg-primary/10 text-primary hover:bg-primary/20">
+                {filterLocation}
+                <button onClick={() => setFilterLocation("")}>×</button>
+              </Badge>
+            )}
           </div>
         </div>
 
-        {/* Results */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {/* Grid de gatos */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCats.map((cat) => (
-            <Card key={cat.id} className="overflow-hidden hover:shadow-card transition-all duration-300 hover:-translate-y-1">
-              <div className="aspect-square overflow-hidden">
+            <Card key={cat.id} className="overflow-hidden hover:shadow-md transition-shadow">
+              <div className="relative">
                 <img 
-                  src={cat.image}
-                  srcSet={`
-                    ${cat.image.replace('.jpg', '-320w.jpg')} 320w,
-                    ${cat.image.replace('.jpg', '-480w.jpg')} 480w,
-                    ${cat.image.replace('.jpg', '-800w.jpg')} 800w
-                  `}
-                  sizes="(max-width: 320px) 280px,
-                         (max-width: 480px) 440px,
-                         (max-width: 1024px) 300px,
-                         400px"
-                  alt={`Gatito ${cat.name} en ${cat.location}`}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
+                  src={cat.image} 
+                  alt={cat.name} 
+                  className="w-full h-64 object-cover"
                 />
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFavorite(cat.id);
+                  }}
+                  className="absolute top-2 right-2 p-2 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background/100 transition-colors"
+                  aria-label={cat.isFavorite ? "Quitar de favoritos" : "Añadir a favoritos"}
+                >
+                  <Heart 
+                    className={`h-6 w-6 ${cat.isFavorite ? 'text-red-500 fill-current' : 'text-foreground'}`} 
+                  />
+                </button>
+                <Badge 
+                  variant={cat.type === 'lost' ? 'destructive' : 'default'}
+                  className="absolute top-2 left-2"
+                >
+                  {cat.type === 'lost' ? 'Perdido' : 'Encontrado'}
+                </Badge>
               </div>
-              
-              <div className="p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold text-lg">{cat.name}</h3>
-                  <Badge variant={cat.type === "lost" ? "destructive" : "default"}>
-                    {cat.type === "lost" ? "Perdido" : "Encontrado"}
-                  </Badge>
-                </div>
-                
-                <div className="space-y-2 text-sm text-muted-foreground mb-4">
-                  <div className="flex items-center gap-2">
-                    <MapPin size={14} />
-                    <span>{cat.location}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar size={14} />
-                    <span>{new Date(cat.date).toLocaleDateString('es-ES')}</span>
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-xl font-bold">{cat.name}</h3>
+                  <div className="flex items-center text-sm text-muted-foreground">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    {cat.location}
                   </div>
                 </div>
-                
-                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                  {cat.description}
-                </p>
-                
-                <div className="flex gap-2 mb-4">
-                  <Badge variant="outline" className="text-xs">{cat.breed}</Badge>
-                  <Badge variant="outline" className="text-xs">{cat.color}</Badge>
-                </div>
-                
-                <div className="flex gap-2">
-                  <Button size="sm" className="flex-1" onClick={() => navigate(`/report/${cat.id}`)}>
-                    Ver Detalles
-                  </Button>
-                  <Button size="sm" variant="outline" className="px-3">
-                    <Heart size={16} />
+                <p className="text-muted-foreground mb-4 line-clamp-2">{cat.description}</p>
+                <div className="flex justify-between items-center">
+                  <div className="text-sm text-muted-foreground flex items-center">
+                    <Calendar className="h-4 w-4 mr-1" />
+                    {new Date(cat.date).toLocaleDateString()}
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => navigate(`/report/${cat.id}`)}
+                  >
+                    Ver detalles
                   </Button>
                 </div>
               </div>
             </Card>
           ))}
         </div>
-        
+
         {filteredCats.length === 0 && (
           <div className="text-center py-12">
-            <div className="text-6xl mb-4">🐱</div>
-            <h3 className="text-xl font-semibold mb-2">No se encontraron resultados</h3>
-            <p className="text-muted-foreground">
-              Intenta ajustar los filtros o crear un nuevo reporte
-            </p>
+            <p className="text-muted-foreground">No se encontraron resultados. Intenta con otros filtros.</p>
           </div>
         )}
-        
-        <div className="text-center mt-12">
-          <Button variant="outline" size="lg">
-            Cargar Más Resultados
-          </Button>
-        </div>
       </div>
     </section>
   );
