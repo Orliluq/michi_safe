@@ -1,0 +1,128 @@
+/* Variables de color basadas en la paleta de la app */
+:root {
+  --color-primary: #4f46e5;       /* Color principal (ícono navbar) */
+  --color-primary-light: #818cf8; /* Versión más clara del primario */
+  --color-primary-dark: #4338ca;  /* Versión más oscura del primario */
+  --color-background: #ffffff;    /* Fondo general */
+  --color-surface: #f9fafb;      /* Superficies de tarjetas */
+  --color-text: #111827;         /* Texto principal */
+  --color-text-secondary: #6b7280; /* Texto secundario */
+  --color-border: #e5e7eb;       /* Bordes */
+  --color-success: #10b981;      /* Éxito */
+  --color-warning: #f59e0b;      /* Advertencia */
+  --color-error: #ef4444;        /* Error */
+}
+
+/* Animaciones para el botón flotante */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Estilos para el botón flotante */
+.michibot-float {
+  background-color: var(--color-primary);
+  color: white;
+  animation: float 3s ease-in-out infinite;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3), 0 2px 4px -1px rgba(79, 70, 229, 0.1);
+}
+
+.michibot-float:hover {
+  animation: none;
+  transform: scale(1.1);
+  background-color: var(--color-primary-dark);
+  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3), 0 4px 6px -2px rgba(79, 70, 229, 0.2);
+}
+
+/* Estilos para la ventana de chat */
+.michibot-chat-window {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid var(--color-border);
+}
+
+/* Estilos para la barra de desplazamiento */
+.michibot-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.michibot-scrollbar::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+.michibot-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary-light);
+  border-radius: 3px;
+}
+
+/* Estilos para los mensajes del bot */
+.michibot-message-bot {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border-radius: 1rem 1rem 1rem 0.25rem;
+  border: 1px solid var(--color-border);
+}
+
+/* Estilos para los mensajes del usuario */
+.michibot-message-user {
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 1rem 1rem 0.25rem 1rem;
+}
+
+/* Estilos para las sugerencias rápidas */
+.michibot-quick-reply {
+  background-color: white;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary-light);
+  transition: all 0.2s ease;
+}
+
+.michibot-quick-reply:hover {
+  background-color: var(--color-primary-light);
+  color: white;
+}
+
+/* Estilos para el indicador de escritura */
+.michibot-typing-indicator span {
+  background-color: var(--color-primary-light);
+}
+
+/* Estilos para el encabezado del chat */
+.michibot-header {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* Estilos para el área de entrada */
+.michibot-input {
+  border-color: var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+.michibot-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+/* Estilos para el botón de envío */
+.michibot-send-button {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.michibot-send-button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.michibot-send-button:disabled {
+  background-color: var(--color-text-secondary);
+  cursor: not-allowed;
+}

@@ -26,5 +26,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "genkit/tools", "genkit/flows", "genkit/schemas", "genkit/index.ts", "genkit/schemas"]
 }

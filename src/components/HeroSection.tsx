@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Heart, Search, Camera, Zap } from "lucide-react";
 import heroImage from "@/assets/hero-cats.jpg";
+import { useNavigate } from "react-router-dom";
 
 export const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero">
       {/* Animated background pattern */}
@@ -27,12 +29,12 @@ export const HeroSection = () => {
           </div>
           
           <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
-            <span className="text-primary">Reúne</span>{" "}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <span className="text-accent">Reúne</span>{" "}
+            <span className="bg-gradient-to-r from-primary to-foreground bg-clip-text text-transparent">
               Gatitos
             </span>{" "}
             <span className="text-foreground">con sus</span>{" "}
-            <span className="text-primary">Familias</span>
+            <span className="text-accent">Familias</span>
           </h1>
           
           <p className="text-xl text-muted-foreground max-w-2xl">
@@ -41,14 +43,29 @@ export const HeroSection = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <Button size="lg" className="text-lg px-8 py-6 shadow-warm hover:shadow-glow transition-all duration-300">
-              <Search className="mr-2" size={20} />
-              Buscar Gatito
-            </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8 py-6 border-primary/30 hover:bg-primary/5">
-              <Camera className="mr-2" size={20} />
-              Reportar Encontrado
-            </Button>
+          <Button 
+            size="lg" 
+            className="text-lg px-8 py-6 shadow-warm hover:shadow-glow transition-all duration-300" 
+            onClick={() => {
+              window.location.href = '#buscar';
+              navigate('/#buscar');
+            }}
+          >
+            <Search className="mr-2" size={20} />
+            Buscar Gatito
+          </Button>
+          <Button 
+            variant="outline" 
+            size="lg" 
+            className="text-lg px-8 py-6 border-primary/30 hover:bg-primary/5" 
+            onClick={() => {
+              window.location.href = '#reportar';
+              navigate('/#reportar');
+            }}
+          >
+            <Camera className="mr-2" size={20} />
+            Reportar Encontrado
+          </Button>
           </div>
           
           <div className="flex items-center gap-8 text-sm text-muted-foreground">
@@ -69,6 +86,8 @@ export const HeroSection = () => {
               src={heroImage} 
               alt="Gatitos siendo reunidos con sus familias - Tecnología IA para encontrar mascotas perdidas"
               className="w-full h-auto object-cover"
+              onError={(e) => (e.currentTarget.src = '/placeholder-image.jpg')}
+              loading="eager"   
             />
             <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
           </div>

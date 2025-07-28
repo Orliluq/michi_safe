@@ -57,7 +57,7 @@ const AbandonedCatsReport = () => {
           
           <h1 className="text-4xl lg:text-6xl font-bold mb-6">
             <span className="text-primary-foreground">Reportar Gatitos</span>{" "}
-            <span className="text-accent">Abandonados</span>
+            <span className="text-foreground">Abandonados</span>
           </h1>
           
           <p className="text-xl text-primary-foreground/80 max-w-3xl mx-auto">

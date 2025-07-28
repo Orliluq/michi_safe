@@ -118,7 +118,7 @@ const AdoptionPage = () => {
           
           <h1 className="text-4xl lg:text-6xl font-bold mb-6">
             <span className="text-primary-foreground">Adopta un</span>{" "}
-            <span className="text-accent">Compañero</span>{" "}
+            <span className="text-foreground">Compañero</span>{" "}
             <span className="text-primary-foreground">de Vida</span>
           </h1>
           

@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, MapPin, Calendar, Heart, Filter } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 // Mock data - En una app real vendría de la base de datos
 const mockCats = [
@@ -59,6 +60,7 @@ const mockCats = [
 ];
 
 export const GallerySection = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState<"all" | "lost" | "found">("all");
   const [filterLocation, setFilterLocation] = useState("");
@@ -80,7 +82,7 @@ export const GallerySection = () => {
           <h2 className="text-4xl font-bold mb-4">
             <span className="text-foreground">Galería de</span>{" "}
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Gatitos
+              Michis
             </span>
           </h2>
           <p className="text-xl text-muted-foreground">
@@ -136,7 +138,7 @@ export const GallerySection = () => {
               <div className="aspect-square overflow-hidden">
                 <img 
                   src={cat.image} 
-                  alt={`Foto de ${cat.name} - ${cat.type === 'lost' ? 'gatito perdido' : 'gatito encontrado'}`}
+                  alt={`Foto de ${cat.name} - ${cat.type === 'lost' ? 'michi perdido' : 'michi encontrado'}`}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -170,7 +172,7 @@ export const GallerySection = () => {
                 </div>
                 
                 <div className="flex gap-2">
-                  <Button size="sm" className="flex-1">
+                  <Button size="sm" className="flex-1" onClick={() => navigate(`/report/${cat.id}`)}>
                     Ver Detalles
                   </Button>
                   <Button size="sm" variant="outline" className="px-3">

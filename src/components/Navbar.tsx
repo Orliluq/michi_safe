@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Heart, Menu, X, Search, Plus, Home, Bot, Shield } from "lucide-react";
 import kittenIcon from "@/assets/kitten-icon.png";
+import { useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border/50 z-50">
@@ -13,10 +15,10 @@ export const Navbar = () => {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full overflow-hidden bg-gradient-hero flex items-center justify-center">
-              <img src={kittenIcon} alt="Gatitos Perdidos" className="w-8 h-8 object-cover" />
+              <img src={kittenIcon} alt="Michi Safe" className="w-8 h-8 object-cover" />
             </div>
             <div>
-              <h1 className="font-bold text-lg text-foreground">Gatitos Perdidos</h1>
+              <h1 className="font-bold text-lg text-foreground">Michi Safe</h1>
               <p className="text-xs text-muted-foreground">IA para reunir familias</p>
             </div>
           </div>
@@ -51,10 +53,10 @@ export const Navbar = () => {
 
           {/* Desktop Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" onClick={() => navigate('/login')}>
               Iniciar Sesión
             </Button>
-            <Button size="sm" className="shadow-warm">
+            <Button size="sm" className="shadow-warm" onClick={() => navigate('/register')}>
               <Heart className="mr-2" size={14} />
               Registrarse
             </Button>
@@ -101,10 +103,10 @@ export const Navbar = () => {
               </a>
               
               <div className="px-4 pt-4 border-t border-border/50 space-y-3">
-                <Button variant="outline" size="sm" className="w-full">
+                <Button variant="outline" size="sm" className="w-full" onClick={() => navigate('/login')}>
                   Iniciar Sesión
                 </Button>
-                <Button size="sm" className="w-full">
+                <Button size="sm" className="w-full" onClick={() => navigate('/register')}>
                   <Heart className="mr-2" size={14} />
                   Registrarse
                 </Button>
