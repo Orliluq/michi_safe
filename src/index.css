@@ -18,8 +18,8 @@ All colors MUST be HSL.
     --popover: 35 20% 98%;
     --popover-foreground: 25 35% 15%;
 
-    /* Primary: Warm orange like cat fur */
-    --primary: 25 85% 55%;
+    /* Primary: Warm orange like cat fur - Improved contrast */
+    --primary: 25 85% 45%;
     --primary-foreground: 35 25% 98%;
     --primary-glow: 35 90% 65%;
 
@@ -27,9 +27,9 @@ All colors MUST be HSL.
     --secondary: 45 35% 88%;
     --secondary-foreground: 25 35% 25%;
 
-    /* Muted: Light cream */
+    /* Muted: Light cream - Improved contrast */
     --muted: 40 20% 94%;
-    --muted-foreground: 25 25% 45%;
+    --muted-foreground: 25 35% 35%;
 
     /* Accent: Golden */
     --accent: 45 85% 68%;

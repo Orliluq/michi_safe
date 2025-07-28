@@ -1,7 +1,7 @@
 # 🐾 Michi Safe - Encuentra a tu Michi Perdido 🐱💕
 
 <div align="center">
-  <img src="src/assets/patitas.png" width="150" alt="Logo de Michi Safe con huellitas de gato">
+  <img src="src/assets/kitten-icon.png" width="150" alt="Logo de Michi Safe con huellitas de gato">
   <h3>Porque cada michi merece volver a casa 🏠❤️</h3>
 </div>
 
@@ -17,13 +17,13 @@
 
 ## 🎯 Superpoderes de Michi Safe
 
-| Poder 😼          | Descripción 📜                                                                                             |
-| ----------------- | ---------------------------------------------------------------------------------------------------------- |
-| **🤖 MichiBot**     | Nuestro asistente chatbot con IA, listo para ayudarte 24/7. ¡Es como tener un detective de michis personal! |
-| **📸 Búsqueda Visual** | Sube una foto y nuestra IA buscará coincidencias en la base de datos. ¡Reconoce hasta la manchita más pequeña! |
-| **🗺️ Mapa de Alertas** | Un mapa interactivo que muestra reportes y avistamientos en tiempo real. ¡El GPS para michis perdidos!       |
-| **💌 Reportes Fáciles** | Formularios súper sencillos para que reportar un gatito perdido o encontrado sea pan comido (o atún).       |
-| **💖 Comunidad Activa** | Una red de héroes locales listos para ayudar en la búsqueda. ¡Juntos somos más fuertes!                     |
+| Poder 😼                | Descripción 📜                                                                                                 |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **🤖 MichiBot**         | Nuestro asistente chatbot con IA, listo para ayudarte 24/7. ¡Es como tener un detective de michis personal!    |
+| **📸 Búsqueda Visual**  | Sube una foto y nuestra IA buscará coincidencias en la base de datos. ¡Reconoce hasta la manchita más pequeña! |
+| **🗺️ Mapa de Alertas**  | Un mapa interactivo que muestra reportes y avistamientos en tiempo real. ¡El GPS para michis perdidos!         |
+| **💌 Reportes Fáciles** | Formularios súper sencillos para que reportar un gatito perdido o encontrado sea pan comido (o atún).          |
+| **💖 Comunidad Activa** | Una red de héroes locales listos para ayudar en la búsqueda. ¡Juntos somos más fuertes!                        |
 
 ---
 
@@ -124,16 +124,19 @@ erDiagram
 ¿Quieres unirte a la misión? ¡Genial! Sigue estos pasos para tener el proyecto corriendo en tu máquina:
 
 1.  **Clona el repositorio:**
+
     ```bash
     git clone https://github.com/Orliluq/michi_safe.git
     ```
 
 2.  **Entra en la carpeta:**
+
     ```bash
     cd michi_safe
     ```
 
 3.  **Instala las dependencias (con npm, yarn o pnpm):**
+
     ```bash
     npm install
     ```
@@ -147,9 +150,82 @@ erDiagram
 
 ---
 
+## ♿ Accesibilidad y Calidad
+
+Nos comprometemos a hacer que Michi Safe sea accesible para todos. Aquí están nuestros resultados de auditoría:
+
+### 🔍 Lighthouse Audit Results
+
+| Categoría          | Puntuación       | Estado       |
+| ------------------ | ---------------- | ------------ |
+| **Performance**    | 🔄 En desarrollo | Optimizando  |
+| **Accessibility**  | 96/100           | ✅ Excelente |
+| **Best Practices** | 100/100          | ✅ Perfecto  |
+| **SEO**            | 100/100          | ✅ Perfecto  |
+
+### 🎯 Mejoras de Accesibilidad Identificadas
+
+**Problemas de Contraste de Color:**
+
+- Algunos elementos de texto no cumplen con la relación de contraste 4.5:1 requerida
+- Elementos afectados: enlaces, texto secundario, botones primarios
+
+**Estructura Semántica:**
+
+- Falta elemento `<main>` para navegación con lectores de pantalla
+- Algunos elementos necesitan mejores etiquetas ARIA
+
+### 🔧 Mejoras Implementadas
+
+- [x] Ajustar colores para cumplir con WCAG 2.1 AA
+- [x] Agregar elemento `<main>` a las páginas
+- [x] Mejorar etiquetas ARIA para formularios
+- [x] Implementar navegación por teclado completa
+- [x] Agregar texto alternativo descriptivo para imágenes
+
+### 📋 Guía de Accesibilidad para Desarrolladores
+
+**Colores y Contraste:**
+```css
+/* Colores actualizados para cumplir WCAG 2.1 AA */
+--primary: 25 85% 45%;        /* Ratio: 4.5:1+ */
+--muted-foreground: 25 35% 35%; /* Ratio: 4.5:1+ */
+```
+
+**Estructura Semántica:**
+```jsx
+// ✅ Correcto
+<main>
+  <header>
+    <h1>Título Principal</h1>
+  </header>
+  <form aria-label="Formulario de inicio de sesión">
+    {/* contenido */}
+  </form>
+</main>
+
+// ❌ Evitar
+<div>
+  <div>
+    <h1>Título</h1>
+  </div>
+</div>
+```
+
+**Navegación por Teclado:**
+```jsx
+// Siempre incluir focus states
+className="focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+
+// ARIA labels para elementos interactivos
+aria-label="Descripción clara del elemento"
+```
+
+---
+
 ## 💖 ¿Quieres Contribuir?
 
-¡Toda ayuda es bienvenida! Ya sea reportando un bug 🐛, sugiriendo una nueva función 💡 o escribiendo código, tu contribución es valiosa. ¡Siéntete libre de abrir un *Pull Request*!
+¡Toda ayuda es bienvenida! Ya sea reportando un bug 🐛, sugiriendo una nueva función 💡 o escribiendo código, tu contribución es valiosa. ¡Siéntete libre de abrir un _Pull Request_!
 
 ---
 

@@ -84,15 +84,15 @@ export function LoginForm() {
   }
 
   return (
-    <div className="mx-auto w-full overflow-hidden max-w-md space-y-6">
-      <div className="text-center">
+    <main className="mx-auto w-full overflow-hidden max-w-md space-y-6">
+      <header className="text-center">
         <h1 className="text-3xl mt-16 font-bold tracking-tight text-foreground">
           Iniciar Sesión
         </h1>
-        <p className="mt-8 text-sm text-muted-foreground">
+        <p className="mt-8 text-sm text-foreground/80">
           Ingresa tus credenciales para acceder a tu cuenta
         </p>
-      </div>
+      </header>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
@@ -125,7 +125,8 @@ export function LoginForm() {
                   <FormLabel>Contraseña</FormLabel>
                   <Link
                     to="/forgot-password"
-                    className="text-sm font-medium text-primary hover:underline"
+                    className="text-sm font-medium text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+                    aria-label="Recuperar contraseña olvidada"
                   >
                     ¿Olvidaste tu contraseña?
                   </Link>
@@ -145,13 +146,17 @@ export function LoginForm() {
           />
           <Button
             type="submit"
-            className="w-full bg-primary hover:bg-primary/90 h-11"
+            className="w-full bg-primary hover:bg-primary/90 h-11 text-primary-foreground font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             disabled={isLoading}
+            aria-describedby={isLoading ? "loading-status" : undefined}
           >
             {isLoading ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Iniciando sesión...
+                <Loader2
+                  className="mr-2 h-4 w-4 animate-spin"
+                  aria-hidden="true"
+                />
+                <span id="loading-status">Iniciando sesión...</span>
               </>
             ) : (
               "Iniciar Sesión"
@@ -164,7 +169,7 @@ export function LoginForm() {
           <span className="w-full border-t" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
+          <span className="bg-background px-2 text-foreground/70">
             O CONTINÚA CON
           </span>
         </div>
@@ -175,6 +180,8 @@ export function LoginForm() {
           type="button"
           disabled={isLoading}
           onClick={handleGoogleLogin}
+          className="focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          aria-label="Iniciar sesión con Google"
         >
           <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
             <path
@@ -196,19 +203,29 @@ export function LoginForm() {
           </svg>
           Google
         </Button>
-        <Button variant="outline" type="button" disabled={isLoading}>
+        <Button
+          variant="outline"
+          type="button"
+          disabled={isLoading}
+          className="focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          aria-label="Iniciar sesión con LinkedIn"
+        >
           <svg className="mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z" />
           </svg>
           LinkedIn
         </Button>
       </div>
-      <p className="px-8 text-center text-sm text-muted-foreground">
+      <p className="px-8 text-center text-sm text-foreground/80">
         ¿No tienes una cuenta?{" "}
-        <Link to="/register" className="hover:text-primary">
+        <Link
+          to="/register"
+          className="text-primary hover:text-primary/80 underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+          aria-label="Crear nueva cuenta"
+        >
           Regístrate
         </Link>
       </p>
-    </div>
+    </main>
   );
 }
