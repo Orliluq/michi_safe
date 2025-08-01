@@ -96,19 +96,17 @@ export function MichiBot({
   return (
     <div className={`fixed z-40 ${positionClasses}`}>
       {isOpen ? (
-        <div className="w-[calc(100vw-2rem)] sm:w-96 h-[calc(100vh-10rem)] max-h-[600px] bg-background border rounded-lg shadow-xl flex flex-col overflow-hidden michibot-chat-window" style={{ top: '80px' }}>
+        <div className="w-[calc(100vw-2rem)] sm:w-96 h-[calc(100vh-10rem)] max-h-[600px] bg-background dark:bg-gray-900 border rounded-lg shadow-xl flex flex-col overflow-hidden michibot-chat-window" style={{ top: '80px' }}>
           {/* Header */}
-          <div 
-            className="bg-primary text-white p-4 flex justify-between items-center"
-          >
-            <div className="flex items-center space-x-2">
+          <div className="bg-primary text-primary-foreground dark:bg-gray-800 dark:text-white p-4 flex items-center justify-between">
+            <div className="flex items-center space-x-3">
               <Avatar className="h-8 w-8">
-                <AvatarImage src={avatar} alt={title} />
+                <AvatarImage src={kittenIcon} alt="MichiBot" />
                 <AvatarFallback>MB</AvatarFallback>
               </Avatar>
               <div>
-                <h3 className="font-bold">{title}</h3>
-                <p className="text-xs opacity-80">{subtitle}</p>
+                <h3 className="font-semibold text-white dark:text-white">{title}</h3>
+                <p className="text-xs text-primary-foreground/80 dark:text-gray-300">{subtitle}</p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
@@ -146,7 +144,7 @@ export function MichiBot({
                 >
                   {!message.isUser && (
                     <Avatar className="h-8 w-8 mr-2 mt-1">
-                      <AvatarImage src={avatar} alt={title} />
+                      <AvatarImage src={kittenIcon} alt="MichiBot" />
                       <AvatarFallback>MB</AvatarFallback>
                     </Avatar>
                   )}
@@ -228,13 +226,13 @@ export function MichiBot({
           </form>
         </div>
       ) : (
-        <Button
+        <button
           onClick={toggleChat}
-          className="h-14 w-14 rounded-full p-0 michibot-float"
+          className="michibot-float bg-primary hover:bg-primary/90 dark:bg-primary dark:hover:bg-primary/90"
           aria-label="Abrir chat"
         >
-           <img src={kittenIcon} alt="Michi Safe" className="w-8 h-8 object-cover" ></img>
-        </Button>
+          <img src={kittenIcon} alt="MichiBot" className="h-6 w-6 text-white" />
+        </button>
       )}
     </div>
   );
